@@ -1,111 +1,111 @@
-hvs = {}
+def buscar_por_nombre():
+    nombre_busqueda = input("Ingrese el nombre a buscar: ").strip().lower()
+    resultados = []
+    for documento, datos in hvs.items():
+        if datos['name'].lower() == nombre_busqueda:
+            resultados.append((documento, datos))
 
-def add_hv():
-    """
-    Función para agregar una hoja de vida al diccionario hvs.
-    """
-    print("\nDatos personales\n")
-    id_usuario = input("ID del usuario: ")  # Usar nombres de variables descriptivos
-    nombre = input("Nombre del usuario: ")
-    contacto = input("Contacto del usuario: ")
-    direccion = input("Dirección del usuario: ")
-    correo = input("Correo del usuario: ")
-    fecha_nacimiento = input("Fecha de nacimiento del usuario: ")
+    if resultados:
+        print(f"\nSe encontraron {len(resultados)} hojas de vida con el nombre '{nombre_busqueda}':\n")
+        for documento, datos in resultados:
+            print("\nInformación de la Hoja de Vida\n")
+            print(f"Número de documento: {documento}")
+            print(f" Nombre: {datos['name']}")
+            print(f" Contacto: {datos['contact']}")
+            print(f" Dirección: {datos['address']}")
+            print(f" Correo: {datos['email']}")
+            print(f" Fecha de nacimiento: {datos['birthday']}")
 
-    print("\nFormacion académica\n")
-    formacion_academica = []  # Usar nombres en minúsculas y descriptivos
+            print("\nFormación Académica:\n")
+            for estudio in datos['academic_training']:
+                print(f"  Institución: {estudio['institution']}")
+                print(f"  Título: {estudio['title']}")
+                print(f"  Año: {estudio['title_year']}")
+                print("-" * 20)
 
-    continuar_formacion = True
-    while continuar_formacion:
-        institucion = input("Nombre de la institución: ")
-        titulo = input("Título conseguido: ")
-        titulo_anio = input("Año en el que consiguió el título: ")
-        formacion_academica.append({
-            "institucion": institucion,
-            "titulo": titulo,
-            "titulo_anio": titulo_anio,
-        })
-        while True:
-            agregar_mas = input("¿Tiene más títulos por agregar? (S/N)\n").lower().strip()
-            if agregar_mas == "s":
-                break
-            elif agregar_mas == "n":
-                continuar_formacion = False
-                break
-            else:
-                print("Opción no válida")
+            print("\nExperiencia Profesional:\n")
+            for trabajo in datos['professional_experience']:
+                print(f"  Empresa: {trabajo['company']}")
+                print(f"  Puesto: {trabajo['job_title']}")
+                print(f"  Funciones: {trabajo['functions']}")
+                print(f"  Duración: {trabajo['time_worked']}")
+                print("-" * 20)
 
-    print("\nExperiencia profesional\n")
-    experiencia_profesional = []  # Usar nombres en minúsculas y descriptivos
+            print("\nReferencias laborales")
+            for referencia_j in datos['job_references']:
+                print(f"  Nombre: {referencia_j['jr_name']}")
+                print(f"  Relación: {referencia_j['jr_relationship']}")
+                print(f"  Contacto: {referencia_j['jr_contact']}")
+                print("-" * 20)
 
-    continuar_experiencia = True
-    while continuar_experiencia:
-        empresa = input("Nombre de la empresa: ")
-        puesto_trabajo = input("Puesto de trabajo: ")
-        funciones = input("Funciones en el trabajo: ")
-        tiempo_trabajado = input("Duración en el cargo: ")
-        experiencia_profesional.append({
-            "empresa": empresa,
-            "puesto_trabajo": puesto_trabajo,
-            "funciones": funciones,
-            "tiempo_trabajado": tiempo_trabajado,
-        })
-        while True:
-            agregar_mas_experiencia = input("¿Tiene otra experiencia laboral por agregar? (S/N)\n").lower().strip()
-            if agregar_mas_experiencia == "s":
-                break
-            elif agregar_mas_experiencia == "n":
-                continuar_experiencia = False
-                break
-            else:
-                print("Opción no válida")
-
-    hvs[id_usuario] = {  # Usar el id_usuario como clave
-        "nombre": nombre,  # Corregir las claves para que coincidan
-        "contacto": contacto,
-        "direccion": direccion,
-        "correo": correo,
-        "fecha_nacimiento": fecha_nacimiento,
-        "formacion_academica": formacion_academica,
-        "experiencia_profesional": experiencia_profesional,
-    }
-    print("Hoja de vida agregada exitosamente") #Indicar que se agregó la hoja de vida
-
-
-
-def share_():
-    """
-    Función para buscar y mostrar una hoja de vida por ID.
-    """
-    search_id = input("Ingrese un número de documento para buscar: ")
-
-    if search_id in hvs:
-        print("\nInformación de la Hoja de Vida\n")
-        print(f"Número de documento: {search_id}")
-        print(f"Nombre: {hvs[search_id]['nombre']}")
-        print(f"Contacto: {hvs[search_id]['contacto']}")
-        print(f"Dirección: {hvs[search_id]['direccion']}")
-        print(f"Correo: {hvs[search_id]['correo']}")
-        print(f"Fecha de nacimiento: {hvs[search_id]['fecha_nacimiento']}")
-
-        print("\nFormación Académica:\n")
-        for estudio in hvs[search_id]['formacion_academica']:
-            print(f"  Institución: {estudio['institucion']}")
-            print(f"  Título: {estudio['titulo']}")
-            print(f"  Año: {estudio['titulo_anio']}")
-            print("-" * 20)  # Separador visual
-
-        print("\nExperiencia Profesional:\n")
-        for trabajo in hvs[search_id]['experiencia_profesional']:
-            print(f"  Empresa: {trabajo['empresa']}")
-            print(f"  Puesto: {trabajo['puesto_trabajo']}")
-            print(f"  Funciones: {trabajo['funciones']}")
-            print(f"  Duración: {trabajo['tiempo_trabajado']}")
-            print("-" * 20)  # Separador visual
+            print("\nReferencias Familiares")
+            for referencia_f in datos['family_references']:
+                print(f"  Nombre: {referencia_f['fr_name']}")
+                print(f"  Relación: {referencia_f['fr_relationship']}")
+                print(f"  Contacto: {referencia_f['fr_contact']}")
+                print("-" * 20)
     else:
-        print(f"No se encontró ninguna hoja de vida con el ID: {search_id}")
+        print(f"No se encontraron hojas de vida con el nombre '{nombre_busqueda}'.")
 
+# Asumiendo que 'hvs' es tu diccionario de hojas de vida
+hvs = {
+    "12345": {
+        "name": "Juan Perez",
+        "contact": "310...",
+        "address": "Calle...",
+        "email": "juan@...",
+        "birthday": "01/01/1990",
+        "academic_training": [
+            {"institution": "Universidad A", "title": "Ingeniero", "title_year": "2015"}
+        ],
+        "professional_experience": [
+            {"company": "Empresa X", "job_title": "Desarrollador", "functions": "...", "time_worked": "2 años"}
+        ],
+        "job_references": [
+            {"jr_name": "Maria Lopez", "jr_relationship": "Jefe", "jr_contact": "311..."}
+        ],
+        "family_references": [
+            {"fr_name": "Pedro Perez", "fr_relationship": "Hermano", "fr_contact": "312..."}
+        ]
+    },
+    "67890": {
+        "name": "Ana Gómez",
+        "contact": "315...",
+        "address": "Avenida...",
+        "email": "ana@...",
+        "birthday": "15/05/1992",
+        "academic_training": [
+            {"institution": "Universidad B", "title": "Abogada", "title_year": "2018"}
+        ],
+        "professional_experience": [
+            {"company": "Bufete Y", "job_title": "Abogada Junior", "functions": "...", "time_worked": "3 años"}
+        ],
+        "job_references": [
+            {"jr_name": "Carlos Ruiz", "jr_relationship": "Colega", "jr_contact": "313..."}
+        ],
+        "family_references": [
+            {"fr_name": "Sofia Gómez", "fr_relationship": "Madre", "fr_contact": "314..."}
+        ]
+    },
+    "13579": {
+        "name": "Juan Carlos Perez",
+        "contact": "320...",
+        "address": "Carrera...",
+        "email": "juancarlos@...",
+        "birthday": "20/11/1988",
+        "academic_training": [
+            {"institution": "Politécnico Z", "title": "Técnico en...", "title_year": "2010"}
+        ],
+        "professional_experience": [
+            {"company": "Industrias W", "job_title": "Operario", "functions": "...", "time_worked": "5 años"}
+        ],
+        "job_references": [
+            {"jr_name": "Laura Vargas", "jr_relationship": "Supervisor", "jr_contact": "316..."}
+        ],
+        "family_references": [
+            {"fr_name": "Elena Pérez", "fr_relationship": "Tía", "fr_contact": "317..."}
+        ]
+    }
+}
 
-
-add_hv()
-share_()
+buscar_por_nombre()
